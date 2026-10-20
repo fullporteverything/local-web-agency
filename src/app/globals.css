@@ -60,6 +60,112 @@ body {
   outline-offset: 2px;
 }
 
+/* ---------- Motion ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(4px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.8s ease;
+}
+.reveal.is-shown {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform;
+}
+.aurora-a { width: 46rem; height: 46rem; left: -12rem; top: -18rem; animation: drift-a 22s ease-in-out infinite alternate; }
+.aurora-b { width: 38rem; height: 38rem; right: -10rem; top: -6rem; animation: drift-b 26s ease-in-out infinite alternate; }
+.aurora-c { width: 34rem; height: 34rem; left: 30%; bottom: -20rem; animation: drift-c 30s ease-in-out infinite alternate; }
+
+@keyframes drift-a { to { transform: translate3d(14rem, 8rem, 0) scale(1.15); } }
+@keyframes drift-b { to { transform: translate3d(-12rem, 10rem, 0) scale(0.9); } }
+@keyframes drift-c { to { transform: translate3d(-10rem, -12rem, 0) scale(1.2); } }
+
+.dot-grid {
+  background-image: radial-gradient(rgb(28 26 23 / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+}
+.dot-grid-dark {
+  background-image: radial-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 20%, transparent 80%);
+}
+
+.marquee-track { animation: marquee 40s linear infinite; }
+.marquee-mask { mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.float-slow { animation: float 7s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-12px) rotate(-0.6deg); } }
+
+.text-shimmer {
+  background: linear-gradient(100deg, var(--pine) 20%, #4c9a6e 40%, var(--clay) 55%, var(--pine) 75%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s ease-in-out infinite alternate;
+}
+@keyframes shimmer { to { background-position: 100% 0; } }
+
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(31 77 54 / 0.09), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.spotlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -24px rgb(31 77 54 / 0.35);
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+/* Animated gradient border: the card fills its padding box, the gradient shows through the border. */
+.glow-border {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    conic-gradient(from var(--angle, 0deg), var(--pine), #7fbf98, var(--clay), var(--pine)) border-box;
+  animation: spin-angle 6s linear infinite;
+}
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes spin-angle { to { --angle: 360deg; } }
+
+.btn-sheen { position: relative; overflow: hidden; }
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+.btn-sheen:hover::after { transform: translateX(120%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  .aurora-blob, .marquee-track, .float-slow, .text-shimmer, .glow-border { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
 .prose-legal h2 {
   font-family: var(--font-fraunces), Georgia, serif;
   font-size: 1.25rem;

@@ -1,6 +1,7 @@
 import { brand, siteUrl } from "@/config/brand";
 import { SiteFooter } from "@/components/site/footer";
 import { SiteHeader } from "@/components/site/header";
+import { ScrollProgress } from "@/components/site/motion";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const jsonLd = {
@@ -14,6 +15,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   };
   return (
     <>
+      <ScrollProgress />
       <SiteHeader name={brand.name} />
       <main>{children}</main>
       <SiteFooter />

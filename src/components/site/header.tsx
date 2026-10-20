@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Container, Logo } from "./ui";
 
 const nav = [
@@ -15,8 +16,22 @@ const nav = [
 
 export function SiteHeader({ name }: { name: string }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b transition-all duration-300",
+        scrolled || open
+          ? "border-line bg-bg/80 shadow-[0_8px_30px_-20px_rgb(28_26_23/0.4)] backdrop-blur-xl"
+          : "border-transparent bg-transparent",
+      )}
+    >
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" aria-label={`${name} home`} onClick={() => setOpen(false)}>
           <Logo name={name} />
@@ -32,7 +47,7 @@ export function SiteHeader({ name }: { name: string }) {
           </Link>
           <Link
             href="/free-preview"
-            className="rounded-full bg-pine px-4 py-2 text-sm font-semibold text-white hover:bg-pine-strong"
+            className="btn-sheen rounded-full bg-pine px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-pine-strong"
           >
             Get a free preview
           </Link>
