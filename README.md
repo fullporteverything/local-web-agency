@@ -8,9 +8,9 @@ The full plan lives in the master spec (v6). This README tracks build progress a
 | Step | What | Status |
 |---|---|---|
 | 1 | Connection check | Done. Waiting on Workspace inbox, Stripe, Places, Claude, booking link |
-| 2 | Public agency website | Built (not deployed yet) |
+| 2 | Public agency website | Live at https://local-web-agency-one.vercel.app |
 | 3 | Supabase schema, RLS, seed data | Written and tested locally. Needs a Supabase project |
-| 4 | CRM UI (Command Center, Pipeline, Inbox, Call Queue, Lead detail, PWA) | Next |
+| 4 | CRM UI (Command Center, Pipeline, Inbox, Call Queue, Lead detail, PWA) | Built at `/admin`, running on demo data until Supabase is connected |
 | 5–14 | Lead finder → pricing → demos → outreach → replies → Stripe → portal → assistant → analytics → launch | Not started |
 
 ## Run it on your computer
@@ -36,6 +36,8 @@ npm run build
 ```
 src/config/brand.ts        Agency name, contact info, tiers, FAQ. Change the name here (or via env vars).
 src/app/(site)/            Public agency website
+src/app/admin/             Owner CRM (Command Center, Pipeline, Inbox, Calls, Lead detail)
+src/lib/crm/               CRM data access, one-tap actions, demo data, call script
 src/app/portal/            Client portal (login only so far)
 src/app/api/inbound/       Contact + free-preview forms → new lead in the CRM
 supabase/migrations/       Database schema + security rules (RLS)

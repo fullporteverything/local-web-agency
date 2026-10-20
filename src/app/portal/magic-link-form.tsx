@@ -6,7 +6,7 @@ import { supabaseBrowser } from "@/lib/supabase/client";
 
 const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
-export function MagicLinkForm() {
+export function MagicLinkForm({ next = "/portal" }: { next?: string }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
@@ -15,14 +15,14 @@ export function MagicLinkForm() {
     e.preventDefault();
     if (!configured) {
       setState("error");
-      setError("The client portal isn't switched on yet. Please email us and we'll help.");
+      setError("Login isn't switched on yet. Please email us and we'll help.");
       return;
     }
     setState("sending");
     const { error } = await supabaseBrowser().auth.signInWithOtp({
       email,
       // Only existing clients can log in; accounts are created automatically at payment.
-      options: { shouldCreateUser: false, emailRedirectTo: `${window.location.origin}/portal/auth/callback` },
+      options: { shouldCreateUser: false, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
     });
     if (error) {
       setState("error");
