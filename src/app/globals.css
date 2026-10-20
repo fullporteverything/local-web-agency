@@ -253,6 +253,26 @@ body {
   html { scroll-behavior: auto; }
 }
 
+/* ---------- Client documents: print/PDF on white paper ---------- */
+
+@media print {
+  @page { size: letter; margin: 0.5in; }
+  body { background: #fff !important; color: #111 !important; }
+  body.grain::after, .no-print { display: none !important; }
+  .doc-page {
+    border: 0 !important;
+    background: #fff !important;
+    padding: 0 !important;
+    max-width: none !important;
+    --ink: #111; --muted: #555; --line: #ddd;
+    color: #111;
+  }
+  .doc-page * { color: inherit; border-color: #ddd !important; background: transparent !important; }
+  .doc-page .text-muted, .doc-page [class*="text-white/"] { color: #666 !important; }
+  .doc-page svg path { fill: #111 !important; }
+  .doc-section { break-inside: avoid; }
+}
+
 /* ---------- Legal pages ---------- */
 
 .prose-legal h2 {

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Bot, ExternalLink, Globe, Mail, MapPin, Phone, Star, User } from "lucide-react";
+import { ArrowLeft, Bot, ExternalLink, FileText, Globe, Mail, MapPin, Phone, Star, User } from "lucide-react";
+import { documents } from "@/components/docs/documents";
 import { Badge, Card, CardHeader, ScoreDot, money, timeAgo } from "@/components/admin/ui";
 import { actorLabel, describeActivity } from "@/lib/crm/activity";
 import { getCalls, getLead, getLeadActivity, getMessages } from "@/lib/crm/data";
@@ -168,6 +169,20 @@ export default async function LeadPage({ params }: Props) {
                 <div className="mt-2 flex flex-wrap gap-1.5">{lead.services.map((s) => <Badge key={s}>{s}</Badge>)}</div>
               </div>
             )}
+          </Card>
+
+          {/* Documents */}
+          <Card>
+            <CardHeader title="Documents" sub="Filled in with this lead's details." />
+            <ul className="grid grid-cols-2 gap-px bg-line">
+              {documents.filter((doc) => doc.audience !== "anyone").map((doc) => (
+                <li key={doc.slug} className="bg-surface">
+                  <Link href={`/admin/docs/${doc.slug}?lead=${lead.id}`} className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-white/[0.03]">
+                    <FileText size={14} className="shrink-0 text-muted" /> <span className="truncate">{doc.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </Card>
 
           {/* Demo */}

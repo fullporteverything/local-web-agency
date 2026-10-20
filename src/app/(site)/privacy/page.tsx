@@ -34,7 +34,7 @@ export default function PrivacyPage() {
 
         <h2>Who we share it with</h2>
         <p>
-          Only the service providers we use to run the business: hosting (Vercel), database (Supabase), email
+          Only the service providers we use to run the business: hosting (Vercel), database (Convex), email
           (Google Workspace and Resend), payments (Stripe), and AI tools that help us write and build sites
           (Anthropic). They may only use your information to provide their service to us.
         </p>

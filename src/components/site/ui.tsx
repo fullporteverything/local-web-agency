@@ -67,18 +67,21 @@ export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: 
   );
 }
 
+// The X mark (traced from the owner's logo file). Change it here and it updates everywhere.
+export const LOGO_PATH =
+  "M5 10.75 L18.17 40.08 L50 54.58 Z M95 10.75 L81.83 40.08 L50 54.58 Z M50 54.58 L13 89.25 L50 71.75 L85.5 89.25 Z";
+
 export function LogoMark({ size = 22 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden>
       <defs>
         <linearGradient id="logoChrome" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#ffffff" />
-          <stop offset="0.55" stopColor="#9a9e9a" />
-          <stop offset="1" stopColor="#e8e9e6" />
+          <stop offset="0.55" stopColor="#c4c7c3" />
+          <stop offset="1" stopColor="#ffffff" />
         </linearGradient>
       </defs>
-      <path d="M16 3l7 9.5h-4.2l5.2 7h-4.6l3.6 6.5H8l3.6-6.5H7l5.2-7H8z" fill="url(#logoChrome)" />
-      <rect x="14.6" y="26" width="2.8" height="4" fill="url(#logoChrome)" />
+      <path d={LOGO_PATH} fill="url(#logoChrome)" />
     </svg>
   );
 }

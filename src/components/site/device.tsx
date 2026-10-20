@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, Clock, Globe, MapPin, Phone, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LogoMark } from "./ui";
 
 /**
  * A CSS-3D phone. It drifts on its own, leans toward the cursor, can be dragged to spin,
@@ -106,16 +107,7 @@ export function Device3D({
         ))}
         {/* Back */}
         <div className="absolute inset-0 flex items-center justify-center rounded-[3rem] bg-gradient-to-br from-[#2a2e2b] to-[#0e100f] [backface-visibility:hidden]" style={{ transform: "rotateY(180deg) translateZ(8px)" }}>
-          <svg width="56" height="56" viewBox="0 0 32 32" aria-hidden>
-            <path d="M16 5l6.5 8.5h-3.8l4.8 6.5h-4.3l3.3 5.5H9.5l3.3-5.5H8.5l4.8-6.5H9.5z" fill="url(#chromeG)" />
-            <defs>
-              <linearGradient id="chromeG" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#fff" />
-                <stop offset="0.5" stopColor="#8a8e8a" />
-                <stop offset="1" stopColor="#e5e7e4" />
-              </linearGradient>
-            </defs>
-          </svg>
+          <LogoMark size={64} />
         </div>
         {/* Front */}
         <div className="absolute inset-0 rounded-[3rem] bg-[#0b0c0b] p-[9px] shadow-[0_0_0_1px_rgb(255_255_255/0.15)] [backface-visibility:hidden]" style={{ transform: "translateZ(8px)" }}>

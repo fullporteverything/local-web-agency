@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bot, Columns3, Gauge, GraduationCap, Inbox, LineChart, Phone, Settings, Users } from "lucide-react";
+import { Bot, Columns3, FileText, Gauge, GraduationCap, Inbox, LineChart, Phone, Settings, Users } from "lucide-react";
 import { LogoMark } from "@/components/site/ui";
 import { cn } from "@/lib/utils";
 
@@ -12,11 +12,12 @@ const nav = [
   { href: "/admin/pipeline", label: "Pipeline", icon: Columns3, mobile: true },
   { href: "/admin/inbox", label: "Inbox", icon: Inbox, mobile: true, badgeKey: "inbox" },
   { href: "/admin/calls", label: "Calls", icon: Phone, mobile: true, badgeKey: "calls" },
+  { href: "/admin/docs", label: "Docs", icon: FileText, mobile: true },
   { href: "/admin/clients", label: "Clients", icon: Users, later: true },
   { href: "/admin/learning", label: "Learning", icon: GraduationCap, later: true },
   { href: "/admin/analytics", label: "Analytics", icon: LineChart, later: true },
   { href: "/admin/assistant", label: "Assistant", icon: Bot, later: true },
-  { href: "/admin/settings", label: "Settings", icon: Settings, mobile: true, later: true },
+  { href: "/admin/settings", label: "Settings", icon: Settings, later: true },
 ] as const;
 
 export function AdminShell({
@@ -34,9 +35,9 @@ export function AdminShell({
   const isActive = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname.startsWith(href));
 
   return (
-    <div className="min-h-dvh lg:grid lg:grid-cols-[15rem_1fr]">
+    <div className="min-h-dvh lg:grid lg:grid-cols-[15rem_1fr] print:block">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line bg-[#0b0d0c] px-3 py-5 lg:flex">
+      <aside className="no-print sticky top-0 hidden h-dvh flex-col border-r border-line bg-[#0b0d0c] px-3 py-5 lg:flex">
         <Link href="/admin" className="flex items-center gap-2.5 px-3 pb-6">
           <LogoMark size={20} />
           <span className="text-sm font-medium tracking-wide">{agencyName}</span>
@@ -69,15 +70,15 @@ export function AdminShell({
 
       <div className="min-w-0">
         {demo && (
-          <div className="border-b border-amber-400/20 bg-amber-400/[0.07] px-4 py-2 text-center text-xs text-amber-200">
-            Demo mode: fake data, nothing is saved or sent. Connect Supabase to go live.
+          <div className="no-print border-b border-amber-400/20 bg-amber-400/[0.07] px-4 py-2 text-center text-xs text-amber-200">
+            Demo mode: fake data, nothing is saved or sent. Connect Convex to go live.
           </div>
         )}
         <main className="mx-auto w-full max-w-7xl px-4 pb-28 pt-5 sm:px-6 lg:pb-12 lg:pt-8">{children}</main>
       </div>
 
       {/* Mobile bottom tabs */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-[#0b0d0c]/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
+      <nav className="no-print fixed inset-x-0 bottom-0 z-40 border-t border-line bg-[#0b0d0c]/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
         <div className="grid grid-cols-5">
           {nav.filter((n) => "mobile" in n && n.mobile).map((item) => {
             const Icon = item.icon;

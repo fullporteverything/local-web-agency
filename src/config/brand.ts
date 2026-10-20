@@ -26,6 +26,7 @@ export const tiers = [
     name: "Basic",
     setup: "Up to $500",
     monthly: "$75–$100/mo",
+    editsPerMonth: 2,
     blurb: "A clean one-page site that gets you found and gets the phone ringing.",
     features: [
       "One-page site on your own domain",
@@ -40,6 +41,7 @@ export const tiers = [
     name: "Premium",
     setup: "$750–$1,000",
     monthly: "$125–$150/mo",
+    editsPerMonth: 4,
     blurb: "A multi-page site with a custom look, built to show up on Google.",
     features: [
       "Everything in Basic",
@@ -54,6 +56,7 @@ export const tiers = [
     name: "All-Out",
     setup: "From $1,500",
     monthly: "$200+/mo",
+    editsPerMonth: 8,
     blurb: "For established businesses that want the site doing real work for them.",
     features: [
       "Everything in Premium",

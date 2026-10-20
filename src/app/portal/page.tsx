@@ -9,7 +9,7 @@ import { MagicLinkForm } from "./magic-link-form";
 export const metadata: Metadata = { title: "Client login", robots: { index: false } };
 
 // Client portal entry. The full portal (progress, edits, billing) is built in a later step;
-// this login works as soon as Supabase Auth is configured.
+// this login works as soon as Convex is configured.
 export default function PortalLoginPage() {
   return (
     <main className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden px-4 py-16">
