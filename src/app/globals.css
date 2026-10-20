@@ -32,8 +32,9 @@
   --color-pine-deep: var(--pine-deep);
   --color-pine-soft: var(--pine-soft);
   --color-clay: var(--clay);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-serif);
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
 }
 
 html {
@@ -43,7 +44,7 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-geist), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -57,6 +58,17 @@ body {
 }
 
 /* ---------- Type ---------- */
+
+/* Display type is Geist set heavy and tight. Geist has no italic, so emphasis spans
+   inside headings stay upright and rely on color instead of a fake slant. */
+.font-display {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.font-display.italic,
+.font-display .italic {
+  font-style: normal;
+}
 
 .label {
   font-size: 0.7rem;
@@ -276,8 +288,10 @@ body {
 /* ---------- Legal pages ---------- */
 
 .prose-legal h2 {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 1.6rem;
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 1.4rem;
   margin-top: 2.25rem;
   margin-bottom: 0.5rem;
   color: var(--ink);

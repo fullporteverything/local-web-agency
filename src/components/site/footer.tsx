@@ -38,7 +38,7 @@ export function SiteFooter() {
       </Container>
 
       <div aria-hidden className="pointer-events-none select-none px-2 text-center">
-        <p className="chrome-text font-display text-[22vw] leading-[0.8] tracking-tight sm:text-[17vw]">{brand.shortName}</p>
+        <p className="chrome-text font-display text-[17vw] leading-[0.85] sm:text-[14vw]">{brand.shortName}</p>
       </div>
 
       <Container className="flex flex-col gap-3 border-t border-line py-6 text-xs text-muted sm:flex-row sm:justify-between">

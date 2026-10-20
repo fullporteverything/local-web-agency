@@ -283,7 +283,7 @@ export function ScrollStory({
                   )}
                 >
                   <p className="label text-[var(--pine-strong)]">{c.label}</p>
-                  <h3 className="mt-4 font-display text-4xl leading-[1.05] sm:text-6xl">{c.title}</h3>
+                  <h3 className="mt-4 font-display text-3xl leading-[1.05] sm:text-5xl">{c.title}</h3>
                   <p className="mt-4 max-w-md text-muted sm:text-lg">{c.body}</p>
                 </div>
               ))}

@@ -41,7 +41,7 @@ export function Eyebrow({ children, className }: { children: React.ReactNode; cl
 }
 
 export function SectionTitle({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <h2 className={cn("font-display text-5xl leading-[1.02] tracking-tight sm:text-7xl", className)}>{children}</h2>;
+  return <h2 className={cn("font-display text-4xl leading-[1.04] sm:text-6xl", className)}>{children}</h2>;
 }
 
 export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: React.ReactNode; lead?: string }) {
@@ -55,7 +55,7 @@ export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: 
           </Reveal>
         )}
         <Reveal delay={80}>
-          <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1.02] tracking-tight sm:text-8xl">{title}</h1>
+          <h1 className="mt-6 max-w-4xl font-display text-[2.6rem] leading-[1.02] sm:text-7xl">{title}</h1>
         </Reveal>
         {lead && (
           <Reveal delay={160}>

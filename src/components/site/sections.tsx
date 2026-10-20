@@ -23,10 +23,10 @@ export function PricingCards() {
                 <p className="label text-muted">Tier {roman[i]}</p>
                 {featured && <span className="label rounded-full bg-white/10 px-3 py-1.5 !text-[0.6rem] text-ink">Most start here</span>}
               </div>
-              <h3 className="mt-6 font-display text-5xl">{tier.name}</h3>
+              <h3 className="mt-6 font-display text-4xl">{tier.name}</h3>
               <p className="mt-3 text-sm text-muted">{tier.blurb}</p>
               <div className="mt-8 border-t border-line pt-6">
-                <p className="font-display text-5xl">{tier.setup}</p>
+                <p className="font-display text-4xl whitespace-nowrap">{tier.setup}</p>
                 <p className="mt-1 text-sm text-muted">one-time setup, then {tier.monthly}</p>
               </div>
               <ul className="mt-8 flex-1 space-y-3.5 text-sm">

@@ -9,7 +9,7 @@ export function CtaPanel({ title = "See yours", accent = "before you pay." }: { 
         <Aurora />
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-1/2 floor-grid" />
         <p className="label text-white/50">Free · No contract · Live in days</p>
-        <h2 className="mx-auto mt-8 max-w-3xl font-display text-5xl leading-[1.02] sm:text-8xl">
+        <h2 className="mx-auto mt-8 max-w-3xl font-display text-4xl leading-[1.02] sm:text-7xl">
           {title} <span className="italic glow-text">{accent}</span>
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-muted">

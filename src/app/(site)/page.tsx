@@ -42,7 +42,7 @@ export default function HomePage() {
         </div>
         {/* Giant faint wordmark behind the device */}
         <Parallax speed={0.25} className="pointer-events-none absolute inset-x-0 top-[34%] -z-10 select-none text-center">
-          <p aria-hidden className="font-display text-[26vw] leading-none tracking-tight text-white/[0.035] lg:text-[19vw]">{brand.shortName}</p>
+          <p aria-hidden className="font-display text-[20vw] leading-none text-white/[0.035] lg:text-[15vw]">{brand.shortName}</p>
         </Parallax>
 
         <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 pb-16 pt-6 sm:px-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -51,7 +51,7 @@ export default function HomePage() {
               <Eyebrow>Websites for local businesses</Eyebrow>
             </Reveal>
             <Reveal delay={120}>
-              <h1 className="mt-7 font-display text-[3.4rem] leading-[0.98] tracking-tight sm:text-8xl xl:text-[7.5rem]">
+              <h1 className="mt-7 font-display text-[2.9rem] leading-[0.98] sm:text-7xl xl:text-[5.6rem]">
                 Your business,
                 <br />
                 <span className="italic glow-text">finally online.</span>
