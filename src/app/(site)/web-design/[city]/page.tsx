@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { citySlug, ncCities } from "@/config/brand";
+import { CtaPanel } from "@/components/site/cta";
+import { Reveal } from "@/components/site/motion";
 import { FaqList, PricingCards, Steps } from "@/components/site/sections";
-import { ButtonLink, Container, PageHeader } from "@/components/site/ui";
+import { Container, Eyebrow, PageHeader } from "@/components/site/ui";
 
 type Props = { params: Promise<{ city: string }> };
 
@@ -31,25 +33,21 @@ export default async function CityPage({ params }: Props) {
     <>
       <PageHeader
         eyebrow={city}
-        title={`Website design for ${city} businesses.`}
+        title={<>Website design for <span className="italic text-muted">{city} businesses.</span></>}
         lead={`When people in ${city} need a plumber, a cake, or a haircut, they search on their phone first. If you don't have a website, they usually call whoever does. We build simple, fast sites that fix that, and we show you yours before you pay.`}
       />
-      <Container className="py-16">
-        <h2 className="font-display text-2xl font-semibold">How it works</h2>
-        <div className="mt-6"><Steps /></div>
-        <h2 className="mt-16 font-display text-2xl font-semibold">Pricing for {city} businesses</h2>
-        <p className="mt-2 max-w-2xl text-muted">
-          Same fair pricing everywhere we work. Small family businesses never pay more than $500 to get started.
-        </p>
-        <div className="mt-6"><PricingCards /></div>
-        <h2 className="mt-16 font-display text-2xl font-semibold">Questions</h2>
-        <div className="mt-6"><FaqList /></div>
-        <div className="mt-12 rounded-2xl bg-pine p-8 text-center text-white">
-          <h2 className="font-display text-2xl font-semibold">Run a business in {city}?</h2>
-          <p className="mt-2 text-white/80">Get a free preview of your website. No cost, no contract.</p>
-          <ButtonLink href="/free-preview" variant="secondary" className="mt-6 border-transparent">Get a free preview</ButtonLink>
-        </div>
+      <Container className="py-24">
+        <Reveal><Eyebrow>How it works</Eyebrow></Reveal>
+        <div className="mt-10"><Steps /></div>
+        <Reveal className="mt-28"><Eyebrow>Pricing for {city} businesses</Eyebrow></Reveal>
+        <Reveal delay={80}>
+          <p className="mt-5 max-w-2xl text-muted">Same fair pricing everywhere we work. Small family businesses never pay more than $500 to get started.</p>
+        </Reveal>
+        <div className="mt-10"><PricingCards /></div>
+        <Reveal className="mt-28"><Eyebrow>Questions</Eyebrow></Reveal>
+        <div className="mt-8"><FaqList /></div>
       </Container>
+      <Container><CtaPanel title={`Run a business in ${city}?`} accent="See yours free." /></Container>
     </>
   );
 }

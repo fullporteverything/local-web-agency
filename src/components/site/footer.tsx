@@ -1,55 +1,70 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { brand, citySlug, ncCities } from "@/config/brand";
 import { Container, Logo } from "./ui";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-24 border-t border-line bg-surface-2/60">
-      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-3">
+    <footer className="relative mt-32 overflow-hidden border-t border-line">
+      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="space-y-5">
           <Logo name={brand.name} />
-          <p className="text-sm text-muted">
-            Websites for small local businesses. Based in {brand.homeCity}.
+          <p className="max-w-xs text-sm text-muted">
+            Websites for small local businesses. Built first, paid for only if you love it. Based in {brand.homeCity}.
           </p>
+          <Link href="/free-preview" className="btn-chrome label inline-flex items-center gap-2 rounded-full px-5 py-3 !tracking-[0.22em]">
+            Free preview <ArrowRight size={14} />
+          </Link>
         </div>
-        <div>
-          <h3 className="text-sm font-semibold">Company</h3>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
-            <li><Link href="/how-it-works" className="hover:text-ink">How it works</Link></li>
-            <li><Link href="/pricing" className="hover:text-ink">Pricing</Link></li>
-            <li><Link href="/work" className="hover:text-ink">Our work</Link></li>
-            <li><Link href="/faq" className="hover:text-ink">FAQ</Link></li>
-            <li><Link href="/portal" className="hover:text-ink">Client login</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold">Where we work</h3>
-          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-muted">
-            {ncCities.slice(0, 8).map((city) => (
-              <li key={city}>
-                <Link href={`/web-design/${citySlug(city)}`} className="hover:text-ink">{city}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold">Get in touch</h3>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
-            <li><a href={`mailto:${brand.email}`} className="hover:text-ink">{brand.email}</a></li>
-            {brand.phone && <li><a href={`tel:${brand.phone}`} className="hover:text-ink">{brand.phone}</a></li>}
-            {brand.mailingAddress && <li>{brand.mailingAddress}</li>}
-            <li><Link href="/contact" className="hover:text-ink">Contact form</Link></li>
-          </ul>
-        </div>
+        <FooterCol title="Agency">
+          <FooterLink href="/how-it-works">Process</FooterLink>
+          <FooterLink href="/pricing">Pricing</FooterLink>
+          <FooterLink href="/work">Work</FooterLink>
+          <FooterLink href="/faq">FAQ</FooterLink>
+          <FooterLink href="/portal">Client login</FooterLink>
+        </FooterCol>
+        <FooterCol title="Local">
+          {ncCities.slice(0, 6).map((city) => (
+            <FooterLink key={city} href={`/web-design/${citySlug(city)}`}>{city}</FooterLink>
+          ))}
+        </FooterCol>
+        <FooterCol title="Contact">
+          <li><a href={`mailto:${brand.email}`} className="text-muted hover:text-ink">{brand.email}</a></li>
+          {brand.phone && <li><a href={`tel:${brand.phone}`} className="text-muted hover:text-ink">{brand.phone}</a></li>}
+          {brand.mailingAddress && <li className="text-muted">{brand.mailingAddress}</li>}
+          <FooterLink href="/contact">Send a message</FooterLink>
+        </FooterCol>
       </Container>
-      <Container className="flex flex-col gap-2 border-t border-line py-6 text-xs text-muted sm:flex-row sm:justify-between">
-        <p>© {year} {brand.name}. All rights reserved.</p>
-        <p className="space-x-4">
-          <Link href="/terms" className="hover:text-ink">Terms of Service</Link>
-          <Link href="/privacy" className="hover:text-ink">Privacy Policy</Link>
+
+      <div aria-hidden className="pointer-events-none select-none px-2 text-center">
+        <p className="chrome-text font-display text-[22vw] leading-[0.8] tracking-tight sm:text-[17vw]">{brand.shortName}</p>
+      </div>
+
+      <Container className="flex flex-col gap-3 border-t border-line py-6 text-xs text-muted sm:flex-row sm:justify-between">
+        <p>© {year} {brand.name}</p>
+        <p className="flex gap-6">
+          <Link href="/terms" className="hover:text-ink">Terms</Link>
+          <Link href="/privacy" className="hover:text-ink">Privacy</Link>
         </p>
       </Container>
     </footer>
+  );
+}
+
+function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h3 className="label text-white/40">{title}</h3>
+      <ul className="mt-5 space-y-3 text-sm">{children}</ul>
+    </div>
+  );
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <Link href={href} className="text-muted transition-colors hover:text-ink">{children}</Link>
+    </li>
   );
 }

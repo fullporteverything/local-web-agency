@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 type Kind = "contact" | "free_preview";
 
 const inputClass =
-  "w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted/70 focus:border-pine focus:outline-none";
+  "w-full border-0 border-b border-white/15 bg-transparent px-0 py-3 text-lg text-ink placeholder:text-white/25 transition-colors focus:border-white/60 focus:outline-none focus:ring-0";
 
 function Field({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
   return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium">{label}</span>
+    <label className="block">
+      <span className="label text-white/45">{label}</span>
       {children}
-      {hint && <span className="block text-xs text-muted">{hint}</span>}
+      {hint && <span className="mt-2 block text-xs text-muted">{hint}</span>}
     </label>
   );
 }
@@ -44,10 +44,10 @@ export function LeadForm({ kind }: { kind: Kind }) {
 
   if (state === "done") {
     return (
-      <div className="rounded-2xl border border-line bg-surface p-8 text-center">
-        <CheckCircle2 className="mx-auto text-pine" size={40} />
-        <h3 className="mt-4 font-display text-2xl font-semibold">Got it, thanks.</h3>
-        <p className="mt-2 text-muted">
+      <div className="glass hairline-frame rounded-3xl p-10 text-center">
+        <CheckCircle2 className="mx-auto text-[var(--pine-strong)]" size={44} />
+        <h3 className="mt-6 font-display text-4xl">Got it, thanks.</h3>
+        <p className="mx-auto mt-3 max-w-md text-muted">
           {kind === "free_preview"
             ? "I'll put together a preview of your site and email you the link, usually within a day or two."
             : "I'll get back to you soon, usually the same business day."}
@@ -57,10 +57,10 @@ export function LeadForm({ kind }: { kind: Kind }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-line bg-surface p-6 sm:p-8">
+    <form onSubmit={onSubmit} className="glass hairline-frame space-y-9 rounded-3xl p-7 sm:p-10">
       {/* Honeypot: real people never see or fill this. */}
       <input type="text" name="company_website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-9 sm:grid-cols-2">
         <Field label="Your name">
           <input name="name" required autoComplete="name" className={inputClass} />
         </Field>
@@ -76,7 +76,7 @@ export function LeadForm({ kind }: { kind: Kind }) {
         <Field label="City">
           <input name="city" required={kind === "free_preview"} autoComplete="address-level2" placeholder="High Point" className={inputClass} />
         </Field>
-        <Field label="Current website or Facebook (optional)">
+        <Field label="Website or Facebook (optional)">
           <input name="current_url" type="text" inputMode="url" placeholder="facebook.com/yourbusiness" className={inputClass} />
         </Field>
       </div>
@@ -84,18 +84,21 @@ export function LeadForm({ kind }: { kind: Kind }) {
         label={kind === "free_preview" ? "What does your business do?" : "How can I help?"}
         hint={kind === "free_preview" ? "A sentence or two is plenty. Services, area you cover, anything you're proud of." : undefined}
       >
-        <textarea name="message" rows={4} required className={inputClass} />
+        <textarea name="message" rows={3} required className={`${inputClass} resize-none`} />
       </Field>
-      {state === "error" && <p className="text-sm text-clay">{error}</p>}
-      <button
-        type="submit"
-        disabled={state === "sending"}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine px-5 py-3 font-semibold text-white hover:bg-pine-strong disabled:opacity-60 sm:w-auto"
-      >
-        {state === "sending" && <Loader2 size={16} className="animate-spin" />}
-        {kind === "free_preview" ? "Build my free preview" : "Send message"}
-      </button>
-      <p className="text-xs text-muted">No spam, no sharing your info. You can opt out anytime.</p>
+      {state === "error" && <p className="text-sm text-[var(--clay)]">{error}</p>}
+      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-muted">No spam, no sharing your info. Opt out anytime.</p>
+        <button
+          type="submit"
+          disabled={state === "sending"}
+          className="btn-chrome label inline-flex w-full items-center justify-center gap-2.5 rounded-full px-7 py-4 !tracking-[0.22em] transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+        >
+          {state === "sending" ? <Loader2 size={14} className="animate-spin" /> : null}
+          {kind === "free_preview" ? "Build my free preview" : "Send message"}
+          {state !== "sending" && <ArrowRight size={14} />}
+        </button>
+      </div>
     </form>
   );
 }

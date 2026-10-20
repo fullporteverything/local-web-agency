@@ -1,145 +1,189 @@
-import { ArrowRight, MapPin, Phone, Search, Smartphone, Star, Zap } from "lucide-react";
+import { ArrowRight, Hand, MapPin, Phone, Smartphone } from "lucide-react";
 import { brand } from "@/config/brand";
+import { Device3D, ScrollStory } from "@/components/site/device";
 import { Aurora, Marquee, Parallax, Reveal, SpotlightCard } from "@/components/site/motion";
-import { FaqList, PricingCards, SampleCard, Steps, sampleDesigns } from "@/components/site/sections";
-import { ButtonLink, Container, Eyebrow } from "@/components/site/ui";
+import { CtaPanel } from "@/components/site/cta";
+import { FaqList, PricingCards, SampleCard, sampleDesigns } from "@/components/site/sections";
+import { ButtonLink, Container, Eyebrow, SectionTitle } from "@/components/site/ui";
 
 const businessTypes = [
   "Roofers", "Barbers", "Bakeries", "Landscapers", "Nail salons", "HVAC", "Restaurants",
   "Auto shops", "Florists", "Painters", "Cleaners", "Pet groomers", "Plumbers", "Food trucks",
 ] as const;
 
+const chapters = [
+  {
+    label: "Chapter I — Today",
+    title: "Customers search. They find your competitor.",
+    body: "Most people look on their phone before they call. If all they find is a listing with no website, they usually go with whoever has one.",
+  },
+  {
+    label: "Chapter II — The preview",
+    title: "We build yours before you pay a cent.",
+    body: "Using what's already public about your business, like your hours, services, and best reviews, we build a real working preview. Free.",
+  },
+  {
+    label: "Chapter III — Live",
+    title: "Like it? It goes live in days.",
+    body: "Your site goes up on your own domain. We handle hosting, updates, and changes for one simple monthly price. No contract.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
-      {/* Hero (pulled up under the transparent header) */}
-      <section className="relative isolate -mt-16 overflow-hidden pt-16">
+      {/* Hero */}
+      <section className="relative isolate -mt-20 flex min-h-dvh flex-col overflow-hidden pt-20">
         <Aurora />
-        <Container className="grid items-center gap-14 pb-16 pt-14 sm:pb-24 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[45%] floor-grid" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="light-beam left-[8%]" />
+          <div className="light-beam right-[8%] [animation-delay:-4s]" />
+        </div>
+        {/* Giant faint wordmark behind the device */}
+        <Parallax speed={0.25} className="pointer-events-none absolute inset-x-0 top-[34%] -z-10 select-none text-center">
+          <p aria-hidden className="font-display text-[26vw] leading-none tracking-tight text-white/[0.035] lg:text-[19vw]">{brand.shortName}</p>
+        </Parallax>
+
+        <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 pb-16 pt-6 sm:px-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1.5 text-xs font-medium text-muted backdrop-blur">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pine/60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-pine" />
-                </span>
-                Websites for local businesses
-              </span>
+              <Eyebrow>Websites for local businesses</Eyebrow>
             </Reveal>
-            <Reveal delay={100}>
-              <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight sm:text-7xl">
-                A real website for your business, <span className="text-shimmer">without the runaround.</span>
+            <Reveal delay={120}>
+              <h1 className="mt-7 font-display text-[3.4rem] leading-[0.98] tracking-tight sm:text-8xl xl:text-[7.5rem]">
+                Your business,
+                <br />
+                <span className="italic glow-text">finally online.</span>
               </h1>
             </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-6 max-w-xl text-lg text-muted">
-                We build you a working preview first, for free. If you like it, it goes live on your own
-                domain in a few days. We handle hosting, updates, and changes after that. No contract.
+            <Reveal delay={240}>
+              <p className="mt-7 max-w-lg text-lg text-muted">
+                We build you a working website first, for free. If you like it, it goes live on your own domain in a
+                few days. No contract, no runaround.
               </p>
             </Reveal>
-            <Reveal delay={300}>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/free-preview" className="px-6 py-3.5 text-base">
-                  Get a free preview <ArrowRight size={18} />
+            <Reveal delay={360}>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <ButtonLink href="/free-preview">
+                  Get a free preview <ArrowRight size={14} />
                 </ButtonLink>
-                <ButtonLink href="/how-it-works" variant="secondary" className="px-6 py-3.5 text-base">
-                  See how it works
+                <ButtonLink href="/how-it-works" variant="secondary">
+                  See the process
                 </ButtonLink>
               </div>
             </Reveal>
-            <Reveal delay={400}>
-              <p className="mt-6 text-sm text-muted">Small family businesses never pay more than $500 to get started.</p>
+            <Reveal delay={480}>
+              <p className="mt-8 flex items-center gap-3 text-sm text-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--pine)] shadow-[0_0_12px_var(--pine)]" />
+                Small family businesses never pay more than $500 to start.
+              </p>
             </Reveal>
           </div>
-          <Reveal delay={250}>
-            <Parallax speed={0.08}>
-              <PhoneMockup />
-            </Parallax>
+          <Reveal delay={200}>
+            <div className="[zoom:0.78] sm:[zoom:0.92] lg:[zoom:1] [--device-w:280px]">
+              <Device3D stage={2} yaw={-18} />
+            </div>
+            <p className="label mt-2 hidden items-center justify-center gap-2 text-white/40 sm:flex">
+              <Hand size={13} /> Drag to turn
+            </p>
           </Reveal>
-        </Container>
+        </div>
+
+        <div className="mx-auto hidden w-full max-w-7xl items-center justify-between px-8 pb-8 lg:flex">
+          <p className="label text-white/40">Based in {brand.homeCity}</p>
+          <p className="label flex items-center gap-3 text-white/40">
+            Scroll <span className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
+          </p>
+        </div>
       </section>
 
       {/* Ticker */}
-      <section className="border-y border-line bg-surface/60 py-7">
-        <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-muted">Built for</p>
+      <section className="border-y border-line py-10">
         <Marquee items={businessTypes} />
       </section>
 
+      {/* Pinned scroll story */}
+      <ScrollStory chapters={chapters} />
+
       {/* Why */}
       <section>
-        <Container className="grid gap-6 py-20 sm:grid-cols-3">
-          {[
-            { icon: Smartphone, title: "Built for phones", body: "Most of your customers will find you on their phone. Every site we build is made for that first." },
-            { icon: Phone, title: "Calls, not clicks", body: "Tap-to-call, your hours, and directions right up top, so people can reach you in one tap." },
-            { icon: MapPin, title: "Local, real people", body: `We're based in ${brand.homeCity} and work with local businesses like yours. You'll always talk to a person.` },
-          ].map(({ icon: Icon, title, body }, i) => (
-            <Reveal key={title} delay={i * 120}>
-              <SpotlightCard className="h-full rounded-2xl border border-line bg-surface p-7">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-pine-soft text-pine">
-                  <Icon size={22} />
-                </span>
-                <h3 className="mt-5 font-display text-xl font-semibold">{title}</h3>
-                <p className="mt-2 text-muted">{body}</p>
-              </SpotlightCard>
-            </Reveal>
-          ))}
-        </Container>
-      </section>
-
-      {/* How it works (dark) */}
-      <section className="relative isolate overflow-hidden bg-[#10261b] text-white">
-        <Aurora dark />
-        <Container className="py-24">
+        <Container className="py-28">
           <Reveal>
-            <Eyebrow className="text-[#e7a27f]">How it works</Eyebrow>
+            <Eyebrow>Why it works</Eyebrow>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl font-semibold sm:text-5xl">
-              You see your site before you pay a cent.
-            </h2>
+            <SectionTitle className="mt-6 max-w-3xl">
+              Built for the way <span className="italic text-muted">people actually</span> find you.
+            </SectionTitle>
           </Reveal>
-          <div className="mt-14">
-            <Steps dark />
+          <div className="mt-16 grid gap-5 sm:grid-cols-3">
+            {[
+              { icon: Smartphone, title: "Phone first", body: "Most of your customers will find you on their phone. Every site we build is made for that first." },
+              { icon: Phone, title: "One tap to call", body: "Tap-to-call, your hours, and directions right up top, so people reach you without hunting." },
+              { icon: MapPin, title: "Real local people", body: `We're based in ${brand.homeCity}. You'll always talk to a person, never a ticket system.` },
+            ].map(({ icon: Icon, title, body }, i) => (
+              <Reveal key={title} delay={i * 120}>
+                <SpotlightCard className="glass hairline-frame h-full rounded-3xl p-8">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-line bg-white/[0.04]">
+                    <Icon size={20} className="text-[var(--pine-strong)]" />
+                  </span>
+                  <h3 className="mt-8 font-display text-3xl">{title}</h3>
+                  <p className="mt-3 text-muted">{body}</p>
+                </SpotlightCard>
+              </Reveal>
+            ))}
           </div>
-          <Reveal delay={200} className="mt-12">
-            <ButtonLink href="/how-it-works" variant="light">
-              The full process <ArrowRight size={16} />
-            </ButtonLink>
-          </Reveal>
         </Container>
       </section>
 
       {/* Pricing */}
-      <section className="relative isolate overflow-hidden">
-        <Container className="py-24">
-          <Reveal>
-            <Eyebrow>Pricing</Eyebrow>
-          </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl font-semibold sm:text-5xl">
-              Fair prices for what your business actually needs.
-            </h2>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="mt-4 max-w-2xl text-muted">Every quote is personal. These are starting ranges, and smaller businesses pay less.</p>
-          </Reveal>
-          <div className="mt-12">
+      <section className="relative isolate overflow-hidden border-t border-line">
+        <Aurora strength={0.6} />
+        <Container className="py-28">
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+            <div>
+              <Reveal>
+                <Eyebrow>Pricing</Eyebrow>
+              </Reveal>
+              <Reveal delay={100}>
+                <SectionTitle className="mt-6">
+                  Fair prices. <span className="italic text-muted">No surprises.</span>
+                </SectionTitle>
+              </Reveal>
+            </div>
+            <Reveal delay={150}>
+              <p className="max-w-md text-muted lg:justify-self-end">
+                Every quote is personal. These are starting ranges, and smaller businesses pay less. One setup fee, one
+                monthly fee, cancel anytime.
+              </p>
+            </Reveal>
+          </div>
+          <div className="mt-16">
             <PricingCards />
           </div>
         </Container>
       </section>
 
       {/* Work */}
-      <section className="bg-surface-2/60">
-        <Container className="py-24">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <Reveal>
-              <Eyebrow>Our work</Eyebrow>
-              <h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Simple, clean, made to get calls.</h2>
-            </Reveal>
-            <ButtonLink href="/work" variant="ghost">See more →</ButtonLink>
+      <section className="border-t border-line">
+        <Container className="py-28">
+          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div>
+              <Reveal>
+                <Eyebrow>The work</Eyebrow>
+              </Reveal>
+              <Reveal delay={100}>
+                <SectionTitle className="mt-6">
+                  Simple. Clean. <span className="italic text-muted">Made to get calls.</span>
+                </SectionTitle>
+              </Reveal>
+            </div>
+            <ButtonLink href="/work" variant="ghost">
+              See more <ArrowRight size={14} />
+            </ButtonLink>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {sampleDesigns.map((s, i) => (
               <Reveal key={s.business} delay={i * 120}>
                 <SampleCard {...s} />
@@ -150,86 +194,34 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section>
-        <Container className="grid gap-12 py-24 lg:grid-cols-[1fr_1.4fr]">
-          <Reveal>
-            <Eyebrow>Questions</Eyebrow>
-            <h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Straight answers.</h2>
-            <p className="mt-4 text-muted">Don&apos;t see yours? Just ask. You&apos;ll hear back from a real person.</p>
-            <ButtonLink href="/contact" variant="secondary" className="mt-6">Ask a question</ButtonLink>
-          </Reveal>
+      <section className="border-t border-line">
+        <Container className="grid gap-14 py-28 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <Reveal>
+              <Eyebrow>Questions</Eyebrow>
+            </Reveal>
+            <Reveal delay={100}>
+              <SectionTitle className="mt-6">
+                Straight <span className="italic text-muted">answers.</span>
+              </SectionTitle>
+            </Reveal>
+            <Reveal delay={150}>
+              <p className="mt-6 text-muted">Don&apos;t see yours? Ask. You&apos;ll hear back from a real person.</p>
+              <ButtonLink href="/contact" variant="secondary" className="mt-8">Ask a question</ButtonLink>
+            </Reveal>
+          </div>
           <Reveal delay={120}>
             <FaqList limit={4} />
           </Reveal>
         </Container>
       </section>
 
-      {/* CTA */}
+      {/* Closing CTA */}
       <section>
-        <Container className="pb-8">
-          <Reveal>
-            <div className="relative isolate overflow-hidden rounded-[2rem] bg-[#10261b] px-6 py-20 text-center text-white sm:px-12">
-              <Aurora dark />
-              <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold sm:text-5xl">
-                Want to see what yours would look like?
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-white/75">
-                Tell us a little about your business and we&apos;ll build a free preview. No pressure, no contract.
-              </p>
-              <ButtonLink href="/free-preview" variant="light" className="mt-9 px-7 py-3.5 text-base">
-                Get my free preview <ArrowRight size={18} />
-              </ButtonLink>
-            </div>
-          </Reveal>
+        <Container>
+          <CtaPanel />
         </Container>
       </section>
     </>
-  );
-}
-
-function PhoneMockup() {
-  return (
-    <div className="relative mx-auto w-full max-w-[22rem]">
-      <div className="float-slow">
-        <div className="rounded-[2.75rem] border-[10px] border-ink bg-ink shadow-[0_50px_100px_-30px_rgb(16_38_27/0.55)]">
-          <div className="overflow-hidden rounded-[2rem] bg-white">
-            <div className="relative overflow-hidden bg-pine px-5 pb-6 pt-8 text-white">
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
-              <p className="text-[11px] uppercase tracking-widest opacity-75">Your business</p>
-              <p className="mt-1 font-display text-2xl font-semibold leading-tight">Family-owned. Done right.</p>
-              <div className="mt-4 flex gap-2">
-                <span className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-pine">
-                  <Phone size={12} /> Call now
-                </span>
-                <span className="rounded-full border border-white/40 px-3 py-1.5 text-xs">Directions</span>
-              </div>
-            </div>
-            <div className="space-y-3 p-5 text-neutral-800">
-              <div className="flex items-center gap-1 text-amber-500">
-                {[0, 1, 2, 3, 4].map((n) => <Star key={n} size={14} fill="currentColor" />)}
-                <span className="ml-1 text-xs text-neutral-500">from Google reviews</span>
-              </div>
-              <div className="rounded-lg bg-neutral-100 p-3 text-xs leading-relaxed text-neutral-600">
-                Your best Google reviews show up right here, so new customers see them first.
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                {["Services", "Hours", "Photos", "Contact"].map((label) => (
-                  <div key={label} className="rounded-lg border border-neutral-200 px-3 py-2.5 font-medium">{label}</div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Floating feature chips */}
-      <div className="absolute -left-14 bottom-32 hidden rounded-2xl border border-line bg-surface/90 px-4 py-3 shadow-xl backdrop-blur sm:block" style={{ animation: "float 6s ease-in-out infinite", animationDelay: "-2s" }}>
-        <p className="flex items-center gap-2 text-sm font-semibold"><Search size={15} className="text-pine" /> Shows up on Google</p>
-      </div>
-      <div className="absolute -right-8 top-10 hidden rounded-2xl border border-line bg-surface/90 px-4 py-3 shadow-xl backdrop-blur sm:block" style={{ animation: "float 7s ease-in-out infinite", animationDelay: "-4s" }}>
-        <p className="flex items-center gap-2 text-sm font-semibold"><Zap size={15} className="text-clay" /> Live in a few days</p>
-      </div>
-      <p className="mt-6 text-center text-xs text-muted">Example layout</p>
-    </div>
   );
 }

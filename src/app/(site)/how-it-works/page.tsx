@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { CtaPanel } from "@/components/site/cta";
+import { Reveal, SpotlightCard } from "@/components/site/motion";
 import { Steps } from "@/components/site/sections";
-import { ButtonLink, Container, PageHeader } from "@/components/site/ui";
+import { Container, Eyebrow, PageHeader, SectionTitle } from "@/components/site/ui";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -18,40 +20,39 @@ export default function HowItWorksPage() {
   return (
     <>
       <PageHeader
-        eyebrow="How it works"
-        title="We build it, you approve it, it goes live."
+        eyebrow="The process"
+        title={<>We build it. You approve it. <span className="italic text-muted">It goes live.</span></>}
         lead="No meetings, no tech talk, no long contracts. You see your site before you pay anything."
       />
-      <Container className="py-16">
-        <h2 className="font-display text-2xl font-semibold">Before you pay</h2>
-        <div className="mt-6">
-          <Steps />
-        </div>
+      <Container className="py-24">
+        <Reveal><Eyebrow>Before you pay</Eyebrow></Reveal>
+        <div className="mt-10"><Steps /></div>
 
-        <h2 className="mt-16 font-display text-2xl font-semibold">After you say yes</h2>
-        <ol className="mt-6 grid gap-6 sm:grid-cols-2">
+        <Reveal className="mt-28"><Eyebrow>After you say yes</Eyebrow></Reveal>
+        <Reveal delay={80}><SectionTitle className="mt-6">Then we <span className="italic text-muted">handle the rest.</span></SectionTitle></Reveal>
+        <ol className="mt-14 border-t border-line">
           {after.map((item, i) => (
-            <li key={item.title} className="rounded-2xl border border-line bg-surface p-6">
-              <span className="text-sm font-semibold text-clay">Step {i + 4}</span>
-              <h3 className="mt-2 font-display text-xl font-semibold">{item.title}</h3>
-              <p className="mt-2 text-muted">{item.body}</p>
-            </li>
+            <Reveal as="li" key={item.title} delay={i * 80}>
+              <div className="grid gap-4 border-b border-line py-10 sm:grid-cols-[8rem_1fr_1.2fr] sm:items-baseline">
+                <span className="font-display text-5xl italic text-white/20">{String(i + 4).padStart(2, "0")}</span>
+                <h3 className="font-display text-3xl">{item.title}</h3>
+                <p className="text-muted">{item.body}</p>
+              </div>
+            </Reveal>
           ))}
         </ol>
 
-        <div className="mt-16 rounded-2xl border border-line bg-surface p-8">
-          <h2 className="font-display text-2xl font-semibold">If you ever want to stop</h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Cancel anytime from your client portal. Your site stays up until the end of the month you&apos;ve
-            paid for, then it comes down. No fees. If you own your domain, it stays yours.
-          </p>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-          <ButtonLink href="/free-preview">Get a free preview</ButtonLink>
-          <ButtonLink href="/pricing" variant="secondary">See pricing</ButtonLink>
-        </div>
+        <Reveal className="mt-20">
+          <SpotlightCard className="glass hairline-frame rounded-3xl p-10">
+            <p className="label text-white/45">If you ever want to stop</p>
+            <p className="mt-5 max-w-3xl font-display text-3xl leading-snug sm:text-4xl">
+              Cancel anytime from your portal. Your site stays up through the month you&apos;ve paid for, then comes down.
+              <span className="italic text-muted"> No fees. Your domain stays yours.</span>
+            </p>
+          </SpotlightCard>
+        </Reveal>
       </Container>
+      <Container><CtaPanel /></Container>
     </>
   );
 }

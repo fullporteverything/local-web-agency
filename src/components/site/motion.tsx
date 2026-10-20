@@ -29,7 +29,7 @@ export function Reveal({
           io.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      { rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -55,19 +55,15 @@ export function Parallax({ children, speed = 0.15, className }: { children: Reac
     let frame = 0;
     const update = () => {
       frame = 0;
-      const rect = el.getBoundingClientRect();
-      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * -speed;
-      el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+      el.style.transform = `translate3d(0, ${(window.scrollY * speed).toFixed(1)}px, 0)`;
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
     };
   }, [speed]);
@@ -99,38 +95,38 @@ export function ScrollProgress() {
     };
   }, []);
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5">
-      <div ref={ref} className="h-full origin-left bg-gradient-to-r from-pine via-[#3f8f63] to-clay" style={{ transform: "scaleX(0)" }} />
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-50 h-px">
+      <div ref={ref} className="h-full origin-left bg-gradient-to-r from-white/0 via-white to-[var(--pine)]" style={{ transform: "scaleX(0)" }} />
     </div>
   );
 }
 
 /** Slow-drifting blurred color blobs + dot grid. Purely decorative. */
-export function Aurora({ className, dark = false }: { className?: string; dark?: boolean }) {
+export function Aurora({ className, strength = 1 }: { className?: string; strength?: number }) {
   return (
-    <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden", className)}>
-      <div className={cn("aurora-blob aurora-a", dark ? "bg-[#2f7a52]/50" : "bg-[#9cc9a8]/45")} />
-      <div className={cn("aurora-blob aurora-b", dark ? "bg-[#b4532a]/35" : "bg-[#f0c9a8]/55")} />
-      <div className={cn("aurora-blob aurora-c", dark ? "bg-[#d9b45a]/25" : "bg-[#e8dcae]/60")} />
-      <div className={cn("absolute inset-0", dark ? "dot-grid-dark" : "dot-grid")} />
+    <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden", className)} style={{ opacity: strength }}>
+      <div className="aurora-blob aurora-a bg-[#1f6b47]/35" />
+      <div className="aurora-blob aurora-b bg-[#2c4f3f]/40" />
+      <div className="aurora-blob aurora-c bg-[#8a5a3c]/15" />
+      <div className="absolute inset-0 dot-grid" />
     </div>
   );
 }
 
-/** Endless horizontal ticker. */
+/** Endless horizontal ticker in outlined serif. */
 export function Marquee({ items }: { items: readonly string[] }) {
   const row = (
-    <div className="flex shrink-0 items-center gap-10 pr-10">
-      {items.map((item) => (
-        <span key={item} className="flex items-center gap-10 whitespace-nowrap font-display text-2xl text-ink/70 sm:text-3xl">
-          {item}
-          <span className="text-clay">✦</span>
+    <div className="flex shrink-0 items-center gap-12 pr-12">
+      {items.map((item, i) => (
+        <span key={item} className="flex items-center gap-12 whitespace-nowrap font-display text-5xl italic sm:text-7xl">
+          <span className={i % 2 ? "outline-text" : "chrome-text"}>{item}</span>
+          <span className="text-2xl text-[var(--pine)]">✦</span>
         </span>
       ))}
     </div>
   );
   return (
-    <div className="marquee-mask flex overflow-hidden">
+    <div className="marquee-mask flex overflow-hidden py-2">
       <div className="marquee-track flex">
         {row}
         {row}

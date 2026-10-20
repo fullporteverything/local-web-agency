@@ -8,7 +8,7 @@ export function Container({ className, children }: { className?: string; childre
 
 type ButtonProps = {
   href: string;
-  variant?: "primary" | "secondary" | "ghost" | "light";
+  variant?: "primary" | "secondary" | "ghost";
   className?: string;
   children: React.ReactNode;
 };
@@ -18,12 +18,10 @@ export function ButtonLink({ href, variant = "primary", className, children }: B
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300",
-        variant === "primary" &&
-          "btn-sheen bg-pine text-white shadow-[0_10px_30px_-12px_rgb(31_77_54/0.7)] hover:-translate-y-0.5 hover:bg-pine-strong hover:shadow-[0_16px_40px_-14px_rgb(31_77_54/0.8)]",
-        variant === "secondary" && "border border-line bg-surface/80 text-ink backdrop-blur hover:-translate-y-0.5 hover:bg-surface",
-        variant === "light" && "btn-sheen bg-[#faf7f0] text-pine hover:-translate-y-0.5 hover:bg-white",
-        variant === "ghost" && "text-pine hover:underline",
+        "label inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3.5 !tracking-[0.22em] transition-all duration-300",
+        variant === "primary" && "btn-chrome hover:-translate-y-0.5",
+        variant === "secondary" && "btn-sheen border border-white/20 text-ink hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/[0.04]",
+        variant === "ghost" && "px-0 text-muted hover:text-ink",
         className,
       )}
     >
@@ -32,24 +30,36 @@ export function ButtonLink({ href, variant = "primary", className, children }: B
   );
 }
 
+/** Small uppercase label with a leading hairline. */
 export function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <p className={cn("text-xs font-semibold uppercase tracking-[0.14em] text-clay", className)}>{children}</p>
+    <p className={cn("label flex items-center gap-3 text-muted", className)}>
+      <span className="h-px w-8 bg-white/30" />
+      {children}
+    </p>
   );
 }
 
-export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: string; lead?: string }) {
+export function SectionTitle({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <h2 className={cn("font-display text-5xl leading-[1.02] tracking-tight sm:text-7xl", className)}>{children}</h2>;
+}
+
+export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: React.ReactNode; lead?: string }) {
   return (
-    <section className="relative isolate -mt-16 overflow-hidden border-b border-line pt-16">
-      <Aurora />
-      <Container className="py-16 sm:py-24">
-        <Reveal>{eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}</Reveal>
+    <section className="relative isolate -mt-20 overflow-hidden border-b border-line pt-20">
+      <Aurora strength={0.8} />
+      <Container className="py-20 sm:py-28">
+        {eyebrow && (
+          <Reveal>
+            <Eyebrow>{eyebrow}</Eyebrow>
+          </Reveal>
+        )}
         <Reveal delay={80}>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">{title}</h1>
+          <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1.02] tracking-tight sm:text-8xl">{title}</h1>
         </Reveal>
         {lead && (
           <Reveal delay={160}>
-            <p className="mt-5 max-w-2xl text-lg text-muted">{lead}</p>
+            <p className="mt-6 max-w-2xl text-lg text-muted">{lead}</p>
           </Reveal>
         )}
       </Container>
@@ -57,14 +67,27 @@ export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: 
   );
 }
 
+export function LogoMark({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
+      <defs>
+        <linearGradient id="logoChrome" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.55" stopColor="#9a9e9a" />
+          <stop offset="1" stopColor="#e8e9e6" />
+        </linearGradient>
+      </defs>
+      <path d="M16 3l7 9.5h-4.2l5.2 7h-4.6l3.6 6.5H8l3.6-6.5H7l5.2-7H8z" fill="url(#logoChrome)" />
+      <rect x="14.6" y="26" width="2.8" height="4" fill="url(#logoChrome)" />
+    </svg>
+  );
+}
+
 export function Logo({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center gap-2 font-display text-lg font-semibold">
-      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden className="text-pine">
-        <rect width="32" height="32" rx="8" fill="currentColor" />
-        <path d="M16 6l6 8h-3.5l4.5 6h-4l3 5H10l3-5H9l4.5-6H10z" fill="#faf7f0" />
-      </svg>
-      {name}
+    <span className="inline-flex items-center gap-2.5">
+      <LogoMark />
+      <span className="label !text-[0.78rem] !tracking-[0.34em] text-ink">{name}</span>
     </span>
   );
 }
