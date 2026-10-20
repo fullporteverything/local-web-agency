@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Local Web Agency
 
-## Getting Started
+An automated local web agency: public agency website, owner CRM, and client portal in one Next.js app.
+The full plan lives in the master spec (v6). This README tracks build progress and setup.
 
-First, run the development server:
+## Build progress (spec Section 17)
+
+| Step | What | Status |
+|---|---|---|
+| 1 | Connection check | Done. Waiting on Workspace inbox, Stripe, Places, Claude, booking link |
+| 2 | Public agency website | Built (not deployed yet) |
+| 3 | Supabase schema, RLS, seed data | Written and tested locally. Needs a Supabase project |
+| 4 | CRM UI (Command Center, Pipeline, Inbox, Call Queue, Lead detail, PWA) | Next |
+| 5–14 | Lead finder → pricing → demos → outreach → replies → Stripe → portal → assistant → analytics → launch | Not started |
+
+## Run it on your computer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # fill in what you have; everything else runs in demo mode
+npm run dev                  # open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without Supabase keys the site still works, and form submissions are logged instead of saved (demo mode).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run test:db   # applies all migrations + seed to an in-memory Postgres and checks every security rule
+npm run build
+```
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/config/brand.ts        Agency name, contact info, tiers, FAQ. Change the name here (or via env vars).
+src/app/(site)/            Public agency website
+src/app/portal/            Client portal (login only so far)
+src/app/api/inbound/       Contact + free-preview forms → new lead in the CRM
+supabase/migrations/       Database schema + security rules (RLS)
+supabase/seed.sql          Fake demo data (example.com emails, 555 numbers). Never contacts anyone real.
+supabase/tests/            Database security tests
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Things only Acen can do
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Pick the agency name and buy the domain (Vercel → Domains → Buy)
+- [ ] Set up Google Workspace on that domain, with one inbox to start
+- [ ] Get a mailing address for email footers (PO box or virtual mailbox)
+- [ ] Form the LLC and connect a business bank account to Stripe
+- [ ] Read and approve the Terms of Service and Privacy Policy drafts (`/terms`, `/privacy`). They are not legal advice.
+- [ ] Create API keys when we reach those steps: Google Places, Claude (console.anthropic.com), Stripe
+- [ ] Make a Cal.com or Calendly booking link
