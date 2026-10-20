@@ -9,7 +9,7 @@ export default function HomePage() {
       <section className="overflow-hidden">
         <Container className="grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2">
           <div>
-            <Eyebrow>Websites for local {brand.state} businesses</Eyebrow>
+            <Eyebrow>Websites for local businesses</Eyebrow>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] sm:text-6xl">
               A real website for your business, without the runaround.
             </h1>
@@ -34,7 +34,7 @@ export default function HomePage() {
           {[
             { icon: Smartphone, title: "Built for phones", body: "Most of your customers will find you on their phone. Every site we build is made for that first." },
             { icon: Phone, title: "Calls, not clicks", body: "Tap-to-call, your hours, and directions right up top, so people can reach you in one tap." },
-            { icon: MapPin, title: "Local, real people", body: `We're based in ${brand.homeCity} and work with businesses across ${brand.state}. You'll always talk to a person.` },
+            { icon: MapPin, title: "Local, real people", body: `We're based in ${brand.homeCity} and work with local businesses like yours. You'll always talk to a person.` },
           ].map(({ icon: Icon, title, body }) => (
             <div key={title}>
               <Icon className="text-pine" size={24} />

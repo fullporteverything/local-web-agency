@@ -10,8 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     url: siteUrl,
     email: brand.email,
     ...(brand.phone && { telephone: brand.phone }),
-    areaServed: { "@type": "State", name: brand.state },
-    description: `Website design for small local businesses in ${brand.state}.`,
+    description: "Website design for small local businesses.",
   };
   return (
     <>

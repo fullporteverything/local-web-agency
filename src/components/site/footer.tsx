@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div className="space-y-3">
           <Logo name={brand.name} />
           <p className="text-sm text-muted">
-            Websites for small local businesses across {brand.state}. Based in {brand.homeCity}.
+            Websites for small local businesses. Based in {brand.homeCity}.
           </p>
         </div>
         <div>

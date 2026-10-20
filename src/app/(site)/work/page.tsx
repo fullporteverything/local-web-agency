@@ -6,7 +6,7 @@ import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase/admin";
 
 export const metadata: Metadata = {
   title: "Our work",
-  description: "Websites we've built for local businesses in North Carolina.",
+  description: "Websites we've built for local businesses.",
 };
 
 export const revalidate = 3600;

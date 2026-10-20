@@ -13,8 +13,6 @@ export const brand = {
   mailingAddress: process.env.NEXT_PUBLIC_MAILING_ADDRESS ?? "",
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   homeCity: "High Point",
-  state: "North Carolina",
-  stateAbbr: "NC",
 } as const;
 
 export const siteUrl =
