@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* Brand tokens. The public site is light; the CRM opts into dark via the .dark class. */
+:root {
+  --bg: #faf7f0;
+  --surface: #ffffff;
+  --surface-2: #f2ede1;
+  --ink: #1c1a17;
+  --muted: #5d5850;
+  --line: #e4ddcc;
+  --pine: #1f4d36;
+  --pine-strong: #163a28;
+  --pine-soft: #e3ece4;
+  --clay: #b4532a;
+  --ring: #1f4d36;
+}
+
+.dark {
+  --bg: #0e1110;
+  --surface: #151a18;
+  --surface-2: #1c2320;
+  --ink: #ecebe6;
+  --muted: #9aa39e;
+  --line: #27302c;
+  --pine: #4fae7f;
+  --pine-strong: #6cc597;
+  --pine-soft: #1b2b23;
+  --clay: #e07a4f;
+  --ring: #4fae7f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-pine: var(--pine);
+  --color-pine-strong: var(--pine-strong);
+  --color-pine-soft: var(--pine-soft);
+  --color-clay: var(--clay);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.prose-legal h2 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p,
+.prose-legal li {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
