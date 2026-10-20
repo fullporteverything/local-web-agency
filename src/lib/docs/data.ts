@@ -40,7 +40,7 @@ export function docDataFromLead(lead: Lead, opts: { live?: string | null; paymen
   const year = new Date().getFullYear();
   const shortId = lead.id.replace(/[^a-z0-9]/gi, "").slice(-4).toUpperCase();
   return {
-    docNumber: `${brand.shortName.slice(0, 2).toUpperCase()}-${year}-${shortId}`,
+    docNumber: `${brand.docPrefix}-${year}-${shortId}`,
     issuedAt: new Date(),
     client: {
       businessName: lead.name,

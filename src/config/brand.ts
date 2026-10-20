@@ -2,17 +2,18 @@
 // To rename the business, change the env vars (or the fallbacks below) and redeploy.
 
 export const brand = {
-  name: process.env.NEXT_PUBLIC_AGENCY_NAME ?? "Longleaf Web",
-  shortName: process.env.NEXT_PUBLIC_AGENCY_SHORT_NAME ?? "Longleaf",
-  domain: process.env.NEXT_PUBLIC_AGENCY_DOMAIN ?? "longleafweb.com",
+  name: process.env.NEXT_PUBLIC_AGENCY_NAME ?? "Northcross",
+  shortName: process.env.NEXT_PUBLIC_AGENCY_SHORT_NAME ?? "Northcross",
+  domain: process.env.NEXT_PUBLIC_AGENCY_DOMAIN ?? "northcrossweb.com",
   ownerName: process.env.NEXT_PUBLIC_OWNER_NAME ?? "Acen",
   ownerFullName: process.env.NEXT_PUBLIC_OWNER_FULL_NAME ?? "Acen",
-  email: process.env.NEXT_PUBLIC_AGENCY_EMAIL ?? "hello@longleafweb.com",
+  email: process.env.NEXT_PUBLIC_AGENCY_EMAIL ?? "hello@northcrossweb.com",
   phone: process.env.NEXT_PUBLIC_AGENCY_PHONE ?? "",
   // Physical mailing address (PO box or virtual mailbox). Required for CAN-SPAM in email footers.
   mailingAddress: process.env.NEXT_PUBLIC_MAILING_ADDRESS ?? "",
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   homeCity: "High Point",
+  docPrefix: "NX", // reference numbers on client documents, e.g. NX-2026-0042
 } as const;
 
 export const siteUrl =

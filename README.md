@@ -1,4 +1,4 @@
-# Local Web Agency
+# Northcross
 
 An automated local web agency: public agency website, owner CRM, and client portal in one Next.js app,
 with Convex as the database. The full plan lives in the master spec (v6). This README tracks build progress and setup.
@@ -63,7 +63,8 @@ convex/security.test.ts    Security tests
 ## Things only Acen can do
 
 - [ ] Create a free Convex account (convex.dev, sign in with GitHub) and a project, then share the deploy key
-- [ ] Pick the agency name and buy the domain (Vercel → Domains → Buy)
+- [x] Pick the agency name: **Northcross**
+- [ ] Buy the domain northcrossweb.com (Vercel → Domains → Buy)
 - [ ] Set up Google Workspace on that domain, with one inbox to start
 - [ ] Get a mailing address for email footers (PO box or virtual mailbox)
 - [ ] Form the LLC and connect a business bank account to Stripe
