@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase/admin";
+import { api } from "../../../../convex/_generated/api";
+import { isConvexConfigured, publicMutation } from "@/lib/convex/server";
 
 // Contact + "Get a free preview" form submissions from the agency site.
 // Each one becomes a high-score inbound lead that enters the normal automated flow.
@@ -42,14 +43,25 @@ export async function POST(req: Request) {
   // Bots fill the hidden field. Pretend it worked so they don't retry.
   if (input.company_website) return NextResponse.json({ ok: true });
 
-  if (!isSupabaseConfigured()) {
-    console.info("[demo mode] inbound lead received", { ...input, email: "<redacted>" });
+  if (!isConvexConfigured() || !process.env.INBOUND_SECRET) {
+    console.info("[demo mode] inbound lead received", { kind: input.kind, city: input.city });
     return NextResponse.json({ ok: true, demo: true });
   }
 
-  const { error } = await supabaseAdmin().rpc("ingest_inbound_lead", { payload: input });
-  if (error) {
-    console.error("ingest_inbound_lead failed", error.message);
+  try {
+    await publicMutation(api.inbound.submit, {
+      secret: process.env.INBOUND_SECRET,
+      kind: input.kind,
+      name: input.name,
+      businessName: input.business_name,
+      email: input.email,
+      phone: input.phone,
+      city: input.city,
+      currentUrl: input.current_url,
+      message: input.message,
+    });
+  } catch (e) {
+    console.error("inbound.submit failed", e);
     return NextResponse.json({ error: "Something went wrong on our end. Please email us instead." }, { status: 500 });
   }
   return NextResponse.json({ ok: true });

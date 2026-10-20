@@ -7,13 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:db": "node supabase/tests/rls.test.mjs"
+    "test": "vitest run",
+    "build:vercel": "if [ -n \"$CONVEX_DEPLOY_KEY\" ]; then npx convex deploy --cmd 'npm run build'; else npm run build; fi"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.12.7",
-    "@supabase/supabase-js": "^2.118.0",
+    "@auth/core": "^0.41.1",
+    "@convex-dev/auth": "^0.0.96",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "convex": "^1.47.0",
     "lucide-react": "^1.59.0",
     "next": "^16.4.2",
     "react": "^19.3.1",
@@ -23,16 +25,18 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "^0.5.10",
-    "@electric-sql/pglite-pgvector": "^0.0.11",
+    "@edge-runtime/vm": "^5.0.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "convex-test": "^0.0.62",
     "eslint": "^9",
     "eslint-config-next": "^16.4.2",
+    "jose": "^6.2.12",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.5"
   }
 }

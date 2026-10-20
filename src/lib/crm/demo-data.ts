@@ -1,6 +1,7 @@
 import type { Activity, CallLog, Health, Lead, Message, Metrics, Stage, Task, Tier } from "./types";
 
-// In-memory copy of supabase/seed.sql so the CRM works before Supabase is connected.
+// Fake demo data, used two ways: the CRM shows it directly before the database is connected,
+// and convex/seed.ts loads it into Convex.
 // Every business is fictional; emails use example.com and phones use 555-01xx.
 
 const H = 3600_000;

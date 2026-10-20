@@ -2,34 +2,33 @@
 
 import { useState } from "react";
 import { Loader2, MailCheck } from "lucide-react";
-import { supabaseBrowser } from "@/lib/supabase/client";
+import { useAuthActions } from "@convex-dev/auth/react";
 
-const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const configured = Boolean(process.env.NEXT_PUBLIC_CONVEX_URL);
 
 export function MagicLinkForm({ next = "/portal" }: { next?: string }) {
+  if (!configured) return <NotYet />;
+  return <Form next={next} />;
+}
+
+function NotYet() {
+  return <p className="mt-8 text-sm text-muted">Login isn&apos;t switched on yet. Please email us and we&apos;ll help.</p>;
+}
+
+function Form({ next }: { next: string }) {
+  const { signIn } = useAuthActions();
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [error, setError] = useState("");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!configured) {
-      setState("error");
-      setError("Login isn't switched on yet. Please email us and we'll help.");
-      return;
-    }
     setState("sending");
-    const { error } = await supabaseBrowser().auth.signInWithOtp({
-      email,
-      // Only existing clients can log in; accounts are created automatically at payment.
-      options: { shouldCreateUser: false, emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
-    });
-    if (error) {
+    try {
+      await signIn("email", { email: email.trim().toLowerCase(), redirectTo: next });
+      setState("sent");
+    } catch {
       setState("error");
-      setError("We couldn't find an account with that email. Use the email you paid with, or contact us.");
-      return;
     }
-    setState("sent");
   }
 
   if (state === "sent") {
@@ -52,7 +51,9 @@ export function MagicLinkForm({ next = "/portal" }: { next?: string }) {
         autoComplete="email"
         className="w-full border-0 border-b border-white/15 bg-transparent px-0 py-3 text-lg placeholder:text-white/25 focus:border-white/60 focus:outline-none focus:ring-0"
       />
-      {state === "error" && <p className="text-sm text-[var(--clay)]">{error}</p>}
+      {state === "error" && (
+        <p className="text-sm text-[var(--clay)]">We couldn&apos;t send a link to that email. Use the email you signed up with, or contact us.</p>
+      )}
       <button
         type="submit"
         disabled={state === "sending"}

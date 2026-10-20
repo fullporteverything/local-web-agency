@@ -4,29 +4,28 @@ import { CtaPanel } from "@/components/site/cta";
 import { Reveal, SpotlightCard } from "@/components/site/motion";
 import { SampleCard, sampleDesigns } from "@/components/site/sections";
 import { Container, Eyebrow, PageHeader } from "@/components/site/ui";
-import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase/admin";
+import { api } from "../../../../convex/_generated/api";
+import { isConvexConfigured, publicQuery } from "@/lib/convex/server";
 
 export const metadata: Metadata = {
   title: "Our work",
   description: "Websites we've built for local businesses.",
 };
 
-export const revalidate = 3600;
+// Rendered per request so newly live client sites show up right away.
+export const dynamic = "force-dynamic";
 
 type Showcase = { name: string; category: string | null; city: string | null; live_url: string; screenshot_url: string | null };
 
 // Live client sites appear here automatically once a client goes live and has given showcase permission.
 async function getShowcase(): Promise<Showcase[]> {
-  if (!isSupabaseConfigured()) return [];
-  const { data, error } = await supabaseAdmin()
-    .from("public_showcase")
-    .select("name, category, city, live_url, screenshot_url")
-    .limit(24);
-  if (error) {
-    console.error("showcase query failed", error.message);
+  if (!isConvexConfigured()) return [];
+  try {
+    return await publicQuery(api.showcase.list, {});
+  } catch (e) {
+    console.error("showcase query failed", e);
     return [];
   }
-  return data ?? [];
 }
 
 export default async function WorkPage() {

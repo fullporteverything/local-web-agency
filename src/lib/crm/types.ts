@@ -1,4 +1,4 @@
-// Shapes the CRM screens work with. They mirror the Supabase tables (supabase/migrations).
+// Shapes the CRM screens work with. convex/crm.ts returns data in exactly these shapes.
 
 export type Stage =
   | "new" | "qualified" | "priced" | "demo_built" | "emailed" | "follow_up_1" | "follow_up_2" | "replied"
@@ -103,7 +103,7 @@ export type Task = {
 };
 
 export type Activity = {
-  id: number;
+  id: string | number;
   business_id: string | null;
   business_name: string | null;
   actor: "system" | "ai" | "acen" | "client" | "lead";

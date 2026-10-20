@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { brand } from "@/config/brand";
 import { Aurora } from "@/components/site/motion";
+import { AuthProviders } from "@/components/convex/providers";
 import { Logo } from "@/components/site/ui";
 import { MagicLinkForm } from "./magic-link-form";
 
@@ -20,7 +21,7 @@ export default function PortalLoginPage() {
           <p className="mt-2 text-sm text-muted">
             Enter the email you signed up with and we&apos;ll send you a login link. No password needed.
           </p>
-          <MagicLinkForm />
+          <AuthProviders><MagicLinkForm /></AuthProviders>
         </div>
         <p className="mt-6 text-center text-sm text-muted">
           Not a client yet? <Link href="/free-preview" className="text-ink underline-offset-4 hover:underline">Get a free preview</Link>

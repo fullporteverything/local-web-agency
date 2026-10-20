@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { brand } from "@/config/brand";
 import { AdminShell } from "@/components/admin/shell";
+import { AuthProviders } from "@/components/convex/providers";
 import { LiveRefresh } from "@/components/admin/live-refresh";
 import { RegisterServiceWorker } from "@/components/admin/register-sw";
 import { ToastProvider } from "@/components/admin/toast";
@@ -24,12 +25,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     calls: leads.filter((l) => l.stage === "needs_call" || l.stage === "call_booked").length,
   };
   return (
-    <ToastProvider>
-      <AdminShell badges={badges} demo={who.demo} agencyName={brand.name}>
-        {children}
-      </AdminShell>
-      <LiveRefresh />
-      <RegisterServiceWorker />
-    </ToastProvider>
+    <AuthProviders>
+      <ToastProvider>
+        <AdminShell badges={badges} demo={who.demo} agencyName={brand.name}>
+          {children}
+        </AdminShell>
+        <LiveRefresh />
+        <RegisterServiceWorker />
+      </ToastProvider>
+    </AuthProviders>
   );
 }

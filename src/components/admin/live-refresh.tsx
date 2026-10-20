@@ -1,31 +1,27 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "@/lib/supabase/client";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
-const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
-/** Re-renders the current CRM screen whenever pipeline, messages, tasks, or activity change. */
+/** Re-renders the current CRM screen the moment anything changes in Convex (new lead, reply, task…). */
 export function LiveRefresh() {
+  if (!process.env.NEXT_PUBLIC_CONVEX_URL) return null;
+  return <Watcher />;
+}
+
+function Watcher() {
   const router = useRouter();
+  const version = useQuery(api.crm.version);
+  const first = useRef<string | undefined>(undefined);
   useEffect(() => {
-    if (!configured) return;
-    const sb = supabaseBrowser();
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const refresh = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => router.refresh(), 400);
-    };
-    const channel = sb.channel("crm-live");
-    for (const table of ["pipeline", "messages", "tasks", "activity_log", "edit_requests"]) {
-      channel.on("postgres_changes", { event: "*", schema: "public", table }, refresh);
+    if (version === undefined) return;
+    if (first.current === undefined) {
+      first.current = version;
+      return;
     }
-    channel.subscribe();
-    return () => {
-      clearTimeout(timer);
-      sb.removeChannel(channel);
-    };
-  }, [router]);
+    router.refresh();
+  }, [version, router]);
   return null;
 }

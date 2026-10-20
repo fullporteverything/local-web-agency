@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { brand } from "@/config/brand";
 import { Aurora } from "@/components/site/motion";
+import { AuthProviders } from "@/components/convex/providers";
 import { Logo } from "@/components/site/ui";
 import { MagicLinkForm } from "@/app/portal/magic-link-form";
 
@@ -23,7 +24,7 @@ export default async function AdminLogin({ searchParams }: { searchParams: Promi
           <h1 className="font-display text-5xl">Owner login</h1>
           <p className="mt-2 text-sm text-muted">We&apos;ll email you a one-time login link.</p>
           {error && errors[error] && <p className="mt-4 text-sm text-[var(--clay)]">{errors[error]}</p>}
-          <MagicLinkForm next="/admin" />
+          <AuthProviders><MagicLinkForm next="/admin" /></AuthProviders>
         </div>
       </div>
     </main>
